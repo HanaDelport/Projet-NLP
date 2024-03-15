@@ -1,6 +1,15 @@
 # Projet-NLP
 Github pour le projet de NLP | Groupe : Saona Moussard - Hana Delport
 
+# Sommaire
+  1. Introduction
+  2. Importations
+  3. Étude du jeu de données
+  4. Préparation des données
+  5. Entraînement du modèle
+  6. Itération de la modélisation
+  7. Résultats
+
 ## Introduction
 
 Notre objectif est d'entrainer un modèle permettant de distinguer le niveau de toxicité de commentaires postés sur Internet.
