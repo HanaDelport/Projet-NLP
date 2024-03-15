@@ -23,7 +23,7 @@ C'est pourquoi nous a semblé pertinent de construire un graphique afin de visua
 Initialement, le dataset est composé de 8 colonnes:
 - un "id", unique pour chaque commentaire
 - un "comment_text"
-- et enfin un niveau de toxicité associé parmi les suivants: "toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate" (de valeur 0 ou 1)
+- une valeur, 0 ou 1, associée à chaque niveau de toxicité parmi les suivants: "toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"
 
 Nous ajoutons une colonne "clean_comments" pour les commentaires n'ayant aucun 1 dans les colonnes de toxicité.
 
