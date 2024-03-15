@@ -42,7 +42,7 @@ Nous devons maintenant préparer les données afin qu'elles puissent être éval
 Après un choix arbitraire, nous avons décider de prendre un vocabulaire maximum à 20 000 mots.
 
 Nous utilisons *list_sentences_train* (appelée X) en input et les valeurs des colonnes spécifiant les toxicité *data[data.columns[2:8]].values* (appelée y) en output.
-Nous ne voulons pas ici la colonne "clean_comments" par soucis de complexité.
+Nous ne souhaitons pas utiliser la colonne "clean_comments" par soucis de complexité.
 
 Nous utilisons la fonction *TextVectorization* qui permet de:
 - standardiser chaque exemple (mettre le texte en minuscule et enlever la ponctuation)
@@ -62,7 +62,7 @@ En utilisant la méthode MCSHBAP (map, cache, shuffle, batch et prefetch) avec t
 
 Nous séparons ensuite notre liste de tokens et notre liste de labels recherchés.
 
-Ensuite, nous séparons les batches en batches de validation (ici, 70% des groupes), de validation (20%) et de testing (10%).
+Ensuite, nous séparons les batches en batches de training (ici, 70%), de validation (20%) et de testing (10%).
 La fonction *skip* permet de ne pas utiliser certaines partitions.
 
 ## Entraînement du modèle
@@ -71,13 +71,11 @@ Nous créons un modèle séquentiel avec les layers suivants:
 - 1 embedding layer
 - 1 bidirectional en utilisant LSTM layer
 - 3 dense layers avec 'relu' en activation
-- *Ici, le layer flatten n'est pas utile*
 - 1 dense layer avec 'sigmoid' en activation pour les 6 labels
 
 'BinaryCrossentropy' est ici utilisable car les 6 classes sont considérées comme différentes et non liées.
 
-Avec mon ordinateur (Saona), chaque epoch dure plus de 2h30 pour se compléter avec tout le dataset.
-J'en ai fait 3...
+/ ! \ Pour l'entraînement du modèle, l'utilisation du GPU permet de gagner énormément de temps (on passe de +3h pour une epoch à une dizaine de minutes)
 
 Un historique des epochs permet de les comparer entre eux.
 
@@ -91,3 +89,22 @@ L'utilisation des fonctions *Precision()*, *Recall()* et *CategoricalAccuracy()'
 Afin d'obtenir les résultats, nous créons une boucle afin qu'après chaque batch, les valeurs associées aux fonctions ci-dessus soient modifiées en conséquence après une comparaison entre les résultats réels et prédictifs. 
 
 ## Résultats
+
+Le dernier modèle ayant utilisé tout le dataset train qui a marché a été entraîné durant 3 epochs et avait obtenu les résultats suivants: 
+
+{'loss': [0.06402899324893951,
+  0.04806467890739441,
+  0.045195598155260086],
+ 'val_loss': [0.04695766419172287,
+  0.047640908509492874,
+  0.041794244199991226]}
+
+Un graphique illustre les valeurs obtenues ci-dessus.
+
+Precision : 0.8554770350456238, Recall : 0.6980968713760376, Accuracy : 0.4924774467945099
+
+Nous voyons que l'accuracy est inférieure à 50% ce qui n'est pas idéal.
+Une tentative à 5 epochs a été faite mais pour des raisons de calculs, n'a pas été fructueuse car elle aurait pris trop de temps.
+
+### Train batch à 50%
+Pour essayer de réduire le temps de calculs tout en ayant un panel assez large pour permettre au modèle de s'entraîner, nous avons réduit les training batches à 60% du dataset et entraînons le modèle sur seulement 2 epochs.
