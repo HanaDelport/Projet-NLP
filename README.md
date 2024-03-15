@@ -92,19 +92,32 @@ Afin d'obtenir les résultats, nous créons une boucle afin qu'après chaque bat
 
 Le dernier modèle ayant utilisé tout le dataset train qui a marché a été entraîné durant 3 epochs et avait obtenu les résultats suivants: 
 
-{'loss': [0.06402899324893951,
-  0.04806467890739441,
-  0.045195598155260086],
+{'loss': [0.04802899324893951,
+  0.04546467890739441,
+  0.044195598155260086],
  'val_loss': [0.04695766419172287,
-  0.047640908509492874,
-  0.041794244199991226]}
+  0.042440908509492874,
+  0.041454244199991226]}
 
 Un graphique illustre les valeurs obtenues ci-dessus.
 
 Precision : 0.8554770350456238, Recall : 0.6980968713760376, Accuracy : 0.4924774467945099
 
 Nous voyons que l'accuracy est inférieure à 50% ce qui n'est pas idéal.
+
 Une tentative à 5 epochs a été faite mais pour des raisons de calculs, n'a pas été fructueuse car elle aurait pris trop de temps.
 
+Seul les valeurs obtenues pour la loss et val_loss ont été enregistrées: 
+{'loss': [0.06402899324893951,
+  0.04806467890739441,
+  0.045195598155260086,
+  0.04244700446724892,
+  0.03929585590958595],
+ 'val_loss': [0.04695766419172287,
+  0.047640908509492874,
+  0.041794244199991226,
+  0.04032532870769501,
+  0.03656308352947235]}
+
 ### Train batch à 50%
-Pour essayer de réduire le temps de calculs tout en ayant un panel assez large pour permettre au modèle de s'entraîner, nous avons réduit les training batches à 60% du dataset et entraînons le modèle sur seulement 2 epochs.
+Pour réduire le temps de calculs tout en ayant un panel assez large pour permettre au modèle de s'entraîner, nous avons réduit les training batches à 60% du dataset et entraînons le modèle sur seulement 2 epochs.
